@@ -14,6 +14,7 @@
     "db:push-turso": "bun --env-file=.env.local prisma/turso-push.js",
     "db:reset": "prisma migrate reset --force && bun --env-file=.env.local prisma/turso-push.js && bun --env-file=.env.local prisma/seed.js",
     "setup": "prisma migrate dev --name init && bun --env-file=.env.local prisma/turso-push.js && bun --env-file=.env.local prisma/seed.js"
+    ,"postinstall": "prisma generate"
   },
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
