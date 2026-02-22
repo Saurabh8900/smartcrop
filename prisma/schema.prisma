@@ -1,0 +1,131 @@
+// This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String
+  email          String   @unique
+  password       String
+  phone          String?
+  village        String?
+  district       String?
+  state          String?
+  soilType       String?
+  irrigationType String?
+  landHolding    String?
+  farmerType     String   @default("Small Farmer")
+  role           String   @default("farmer")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  crops        Crop[]
+  alerts       Alert[]
+  soilReadings SoilReading[]
+  posts        CommunityPost[]
+}
+
+model Crop {
+  id              String   @id @default(cuid())
+  userId          String
+  name            String
+  stage           String
+  health          Int      @default(75)
+  area            String
+  sowingDate      String
+  expectedHarvest String
+  waterRequired   String
+  lastAction      String?
+  notes           String?
+  daysToHarvest   Int      @default(60)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  soilReadings SoilReading[]
+}
+
+model SoilReading {
+  id          String   @id @default(cuid())
+  userId      String
+  cropId      String?
+  sensorId    String
+  location    String
+  moisture    Float
+  temperature Float
+  ph          Float
+  nitrogen    Float
+  phosphorus  Float
+  potassium   Float
+  ec          Float
+  battery     Int
+  signal      String
+  depth       String
+  trend       String   @default("stable")
+  createdAt   DateTime @default(now())
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  crop Crop? @relation(fields: [cropId], references: [id])
+}
+
+model Alert {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  severity  String
+  message   String
+  icon      String   @default("🔔")
+  color     String   @default("gray")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CommunityPost {
+  id         String   @id @default(cuid())
+  userId     String
+  title      String
+  body       String
+  tags       String   // JSON array string e.g. '["Wheat","Pest"]'
+  likes      Int      @default(0)
+  views      Int      @default(0)
+  upvotes    Int      @default(0)
+  isAnswered Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user     User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments CommunityComment[]
+}
+
+model CommunityComment {
+  id         String        @id @default(cuid())
+  postId     String
+  authorName String
+  authorRole String        @default("Farmer")
+  body       String
+  isExpert   Boolean       @default(false)
+  createdAt  DateTime      @default(now())
+
+  post CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model MarketPrice {
+  id         String   @id @default(cuid())
+  cropName   String
+  msp        Int
+  modalPrice Int
+  minPrice   Int
+  maxPrice   Int
+  prevPrice  Int
+  mandi      String
+  arrivalQty String
+  createdAt  DateTime @default(now())
+}
