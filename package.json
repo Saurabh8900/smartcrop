@@ -10,9 +10,12 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@faker-js/faker": "^10.3.0",
+    "lucide-react": "^0.575.0",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "recharts": "^3.7.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
