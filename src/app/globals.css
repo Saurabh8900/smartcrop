@@ -54,7 +54,9 @@ html {
 
 /* Card hover animation */
 .card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .card-hover:hover {
@@ -81,7 +83,6 @@ html {
 
 /* Pulse animation for live indicators */
 @keyframes pulse-green {
-
   0%,
   100% {
     opacity: 1;
@@ -94,4 +95,52 @@ html {
 
 .pulse-green {
   animation: pulse-green 2s infinite;
+}
+
+
+#google_translate_element {
+  position: fixed;
+  left: -9999px;
+  bottom: -9999px;
+  visibility: hidden !important;
+}
+
+/* Hide the Google Translate iframe and its container */
+body > .skiptranslate, 
+body > .goog-tooltip,
+.VIpgJd-ZVi9od-ORHb-OEVmcd, /* A common class name for the banner */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+
+/* Loading spinner (gol gol icon) ko hatane ke liye */
+#goog-gt-tt, .goog-te-spinner-pos, .goog-te-spinner {
+    display: none !important;
+}
+
+/* Mouse hover par aane wale popup (tooltip) ko hatane ke liye */
+.goog-tooltip, .goog-tooltip:hover {
+    display: none !important;
+}
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Agar spinner tab bhi dikhe toh ise try karein */
+.VIpgJd-ZVi9od-aZ66s-b9vBjn {
+    display: none !important;
+}
+
+.hidden-translate-container {
+    position: fixed;
+    left: -9999px;
+    bottom: -9999px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
 }

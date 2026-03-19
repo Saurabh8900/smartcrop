@@ -5,12 +5,14 @@ export const { auth: middleware } = NextAuth(authConfig);
 export default middleware;
 
 export const config = {
-    matcher: [
-        "/dashboard/:path*",
-        "/advisory/:path*",
-        "/weather/:path*",
-        "/pest-risk/:path*",
-        "/market/:path*",
-        "/community/:path*",
-    ],
+  matcher: [
+    "/login",
+    "/register",
+    "/dashboard/:path*",
+    "/advisory/:path*",
+    "/weather/:path*",
+    "/pest-risk/:path*",
+    "/market/:path*",
+    "/community/:path*",
+  ],
 };
