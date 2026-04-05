@@ -13,14 +13,16 @@
     "db:seed": "bun --env-file=.env.local prisma/seed.js",
     "db:push-turso": "bun --env-file=.env.local prisma/turso-push.js",
     "db:reset": "prisma migrate reset --force && bun --env-file=.env.local prisma/turso-push.js && bun --env-file=.env.local prisma/seed.js",
-    "setup": "prisma migrate dev --name init && bun --env-file=.env.local prisma/turso-push.js && bun --env-file=.env.local prisma/seed.js"
-    ,"postinstall": "prisma generate"
+    "setup": "prisma migrate dev --name init && bun --env-file=.env.local prisma/turso-push.js && bun --env-file=.env.local prisma/seed.js",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^3.0.33",
     "@faker-js/faker": "^10.3.0",
     "@libsql/client": "^0.17.0",
     "@prisma/adapter-libsql": "^7.4.1",
     "@prisma/client": "^7.5.0",
+    "ai": "^6.0.146",
     "bcryptjs": "^3.0.3",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.575.0",

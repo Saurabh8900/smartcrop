@@ -5,6 +5,7 @@ import {
   Bug,
   ChevronDown,
   CloudSun,
+  Brain,
   LayoutDashboard,
   Leaf,
   Lightbulb,
@@ -24,6 +25,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 const navLinks = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/advisory", label: "Advisory", icon: Lightbulb },
+  { href: "/ai-chat", label: "AI Chat", icon: Brain },
   { href: "/weather", label: "Weather", icon: CloudSun },
   { href: "/pest-risk", label: "Pest Risk", icon: Bug },
   { href: "/market", label: "Market", icon: TrendingUp },
@@ -72,11 +74,10 @@ export default function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                  isActive(href)
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(href)
                     ? "bg-green-100 text-green-800"
                     : "text-gray-600 hover:bg-green-50 hover:text-green-700"
-                }`}
+                  }`}
               >
                 <Icon className="w-4 h-4" />
                 {label}
@@ -116,11 +117,10 @@ export default function Navbar() {
                       type="button"
                       key={option.code}
                       onClick={() => handleLanguageChange(option.code)}
-                      className={`w-full text-left px-3 py-2 text-sm transition-colors ${
-                        option.code === language
+                      className={`w-full text-left px-3 py-2 text-sm transition-colors ${option.code === language
                           ? "bg-green-50 text-green-800"
                           : "text-gray-700 hover:bg-green-50"
-                      }`}
+                        }`}
                       role="option"
                       aria-selected={option.code === language}
                     >
@@ -134,61 +134,61 @@ export default function Navbar() {
             {/* Auth section */}
             {status === "authenticated" && session?.user
               ? <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-lg border border-green-200 text-sm font-medium text-green-800 hover:bg-green-50 transition-colors"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-xs font-bold">
-                      {session.user.name?.[0]?.toUpperCase() ?? "U"}
-                    </div>
-                    <span className="max-w-25 truncate">
-                      {session.user.name?.split(" ")[0]}
-                    </span>
-                    <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
-                  </button>
+                <button
+                  type="button"
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-lg border border-green-200 text-sm font-medium text-green-800 hover:bg-green-50 transition-colors"
+                >
+                  <div className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-xs font-bold">
+                    {session.user.name?.[0]?.toUpperCase() ?? "U"}
+                  </div>
+                  <span className="max-w-25 truncate">
+                    {session.user.name?.split(" ")[0]}
+                  </span>
+                  <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
+                </button>
 
-                  {userMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-50">
-                      <div className="px-4 py-2 border-b border-gray-100">
-                        <p className="text-sm font-semibold text-gray-900">
-                          {session.user.name}
-                        </p>
-                        <p className="text-xs text-gray-500 truncate">
-                          {session.user.email}
-                        </p>
-                      </div>
-                      <Link
-                        href="/dashboard"
-                        onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors"
-                      >
-                        <UserCircle className="w-4 h-4" /> Your Dashboard
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={() => signOut({ callbackUrl: "/" })}
-                        className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
-                      >
-                        <LogOut className="w-4 h-4" /> Sign Out
-                      </button>
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-50">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-gray-900">
+                        {session.user.name}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {session.user.email}
+                      </p>
                     </div>
-                  )}
-                </div>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors"
+                    >
+                      <UserCircle className="w-4 h-4" /> Your Dashboard
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" /> Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
               : <div className="flex items-center gap-2">
-                  <Link
-                    href="/register"
-                    className="px-4 py-2 border border-green-600 text-green-700 text-sm font-medium rounded-lg hover:bg-green-50 transition-colors"
-                  >
-                    Sign Up
-                  </Link>
-                  <Link
-                    href="/login"
-                    className="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors shadow-sm"
-                  >
-                    Sign In
-                  </Link>
-                </div>}
+                <Link
+                  href="/register"
+                  className="px-4 py-2 border border-green-600 text-green-700 text-sm font-medium rounded-lg hover:bg-green-50 transition-colors"
+                >
+                  Sign Up
+                </Link>
+                <Link
+                  href="/login"
+                  className="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors shadow-sm"
+                >
+                  Sign In
+                </Link>
+              </div>}
           </div>
 
           {/* Mobile menu toggle */}
@@ -212,11 +212,10 @@ export default function Navbar() {
               key={href}
               href={href}
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                isActive(href)
+              className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${isActive(href)
                   ? "bg-green-100 text-green-800"
                   : "text-gray-600 hover:bg-green-50 hover:text-green-700"
-              }`}
+                }`}
             >
               <Icon className="w-4 h-4" />
               {label}
@@ -232,11 +231,10 @@ export default function Navbar() {
                   type="button"
                   key={option.code}
                   onClick={() => handleLanguageChange(option.code)}
-                  className={`px-3 py-2 text-sm rounded-lg border transition-colors ${
-                    option.code === language
+                  className={`px-3 py-2 text-sm rounded-lg border transition-colors ${option.code === language
                       ? "border-green-300 bg-green-50 text-green-800"
                       : "border-gray-200 text-gray-700 hover:border-green-200 hover:bg-green-50"
-                  }`}
+                    }`}
                 >
                   {option.label}
                 </button>
@@ -245,43 +243,43 @@ export default function Navbar() {
 
             {status === "authenticated" && session?.user
               ? <>
-                  <div className="flex items-center gap-2 px-3 py-2 mb-1">
-                    <div className="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center text-sm font-bold">
-                      {session.user.name?.[0]?.toUpperCase() ?? "U"}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900">
-                        {session.user.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {session.user.email}
-                      </p>
-                    </div>
+                <div className="flex items-center gap-2 px-3 py-2 mb-1">
+                  <div className="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center text-sm font-bold">
+                    {session.user.name?.[0]?.toUpperCase() ?? "U"}
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-red-50 text-red-600 text-sm font-medium rounded-lg hover:bg-red-100 transition-colors"
-                  >
-                    <LogOut className="w-4 h-4" /> Sign Out
-                  </button>
-                </>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">
+                      {session.user.name}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {session.user.email}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-red-50 text-red-600 text-sm font-medium rounded-lg hover:bg-red-100 transition-colors"
+                >
+                  <LogOut className="w-4 h-4" /> Sign Out
+                </button>
+              </>
               : <div className="flex flex-col gap-2">
-                  <Link
-                    href="/register"
-                    onClick={() => setMobileOpen(false)}
-                    className="block text-center px-4 py-2.5 border border-green-600 text-green-700 text-sm font-medium rounded-lg hover:bg-green-50 transition-colors"
-                  >
-                    Sign Up
-                  </Link>
-                  <Link
-                    href="/login"
-                    onClick={() => setMobileOpen(false)}
-                    className="block text-center px-4 py-2.5 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
-                  >
-                    Sign In
-                  </Link>
-                </div>}
+                <Link
+                  href="/register"
+                  onClick={() => setMobileOpen(false)}
+                  className="block text-center px-4 py-2.5 border border-green-600 text-green-700 text-sm font-medium rounded-lg hover:bg-green-50 transition-colors"
+                >
+                  Sign Up
+                </Link>
+                <Link
+                  href="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="block text-center px-4 py-2.5 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
+                >
+                  Sign In
+                </Link>
+              </div>}
           </div>
         </div>
       )}
